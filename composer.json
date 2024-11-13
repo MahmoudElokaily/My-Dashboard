@@ -1,5 +1,7 @@
 {
     "name": "elokaily/dashboard",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "Elokaily\\Dashboard\\": "src/"
