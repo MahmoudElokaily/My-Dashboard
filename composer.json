@@ -1,0 +1,15 @@
+{
+    "name": "elokaily/dashboard",
+    "autoload": {
+        "psr-4": {
+            "Elokaily\\Dashboard\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Elokaily",
+            "email": "mahmoudelokaily3@gmail.com"
+        }
+    ],
+    "require": {}
+}
