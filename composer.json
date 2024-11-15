@@ -13,5 +13,7 @@
             "email": "mahmoudelokaily3@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "laravel/socialite": "^5.16"
+    }
 }
