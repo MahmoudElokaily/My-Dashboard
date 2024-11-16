@@ -6,13 +6,12 @@ namespace Elokaily\Dashboard\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Carbon\Carbon;
+use Elokaily\Dashboard\helpers\ImageHelpers;
 use Elokaily\Dashboard\Mail\ResetPasswordMail;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -154,5 +153,39 @@ class AuthController extends Controller
             ->update(['password' => Hash::make($request->password)]);
         \DB::table('password_reset_tokens')->where(['email'=> $passwordReset->email])->delete();
         return to_route("dashboard.login")->with("success" , "Your password has been changed!");
+    }
+
+    public function showProfile($id) {
+        $data['user'] = User::findOrFail($id);
+        $data['title'] = __("My profile");
+        return view("dashboard::auth.profile" , $data);
+    }
+
+    public function updateProfile(Request $request , $id){
+        $user = User::findOrFail($id);
+        $data = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'picture' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', // 2MB Max
+        ]);
+        $data['name'] = $data['first_name'] . " " . $data["last_name"];
+        unset($data['first_name'] , $data['last_name']);
+        // image save
+        $file_name = "";
+        if ($request->hasFile('picture')) {
+            // Delete the old profile picture if it exists
+            $fileName = basename(parse_url($user->picture, PHP_URL_PATH));
+            if ($user->picture && file_exists(public_path('images/profile_pictures/' . $fileName))) {
+                unlink(public_path('images/profile_pictures/' . $fileName));
+            }
+
+            // Save the new profile picture using the saveImage function
+            $file_name = ImageHelpers::saveImage($request->file('picture'), 'images/profile_pictures/');
+            $data["picture"] = $file_name ? asset("images/profile_pictures/$file_name") : $user->profile_picture;
+
+        }
+        $user->update($data);
+        return redirect()->back()->with('success', 'Profile updated successfully.');
     }
 }

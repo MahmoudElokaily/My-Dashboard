@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{asset('elokaily/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    @stack("css")
 
 </head>
 
@@ -99,6 +100,8 @@
 <!-- Page level custom scripts -->
 <script src="{{asset('elokaily/js/demo/chart-area-demo.js')}}"></script>
 <script src="{{asset('elokaily/js/demo/chart-pie-demo.js')}}"></script>
+
+@stack('js')
 
 </body>
 

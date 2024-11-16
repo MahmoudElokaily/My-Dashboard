@@ -8,6 +8,8 @@ Route::group(["prefix" => "dashboard" , "as" => "dashboard." , "middleware" => "
     Route::group(["middleware" => "auth"] , function (){
         Route::get('/' , [AuthController::class , "dashboard"])->name('main');
         Route::get('/logout' , [AuthController::class , "logout"])->name('logout');
+        Route::get('profile/{id}' , [AuthController::class, "showProfile"])->name('show-profile');
+        Route::post('update-profile/{id}' , [AuthController::class, "updateProfile"])->name('update-profile');
 
     });
 
