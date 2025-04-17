@@ -1,7 +1,5 @@
 {
     "name": "elokaily/dashboard",
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "Elokaily\\Dashboard\\": "src/"
@@ -15,5 +13,7 @@
     ],
     "require": {
         "laravel/socialite": "^5.16"
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
