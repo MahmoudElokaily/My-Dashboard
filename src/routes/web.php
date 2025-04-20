@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(["prefix" => "dashboard" , "as" => "dashboard." , "middleware" => "web"] , function (){
     // auth pages
-    Route::group(["middleware" => "auth"] , function (){
+    Route::group(["middleware" => "CheckAuth"] , function (){
         Route::get('/' , [AuthController::class , "dashboard"])->name('main');
         Route::get('/logout' , [AuthController::class , "logout"])->name('logout');
         Route::get('profile/{id}' , [AuthController::class, "showProfile"])->name('show-profile');
@@ -13,8 +13,10 @@ Route::group(["prefix" => "dashboard" , "as" => "dashboard." , "middleware" => "
 
     });
 
+
     // unAuth pages
-    Route::middleware('guest')->group(function () {
+
+    Route::middleware(['web' , 'guest'])->group(function () {
         Route::get("login", [AuthController::class, "login"])->name('login');
         Route::post("authenticate/user", [AuthController::class, "authenticate"])->name('authenticate');
         Route::get("register", [AuthController::class, "register"])->name('register');
@@ -32,4 +34,7 @@ Route::group(["prefix" => "dashboard" , "as" => "dashboard." , "middleware" => "
         Route::get('/{provider}/callback' , [AuthController::class , "socialAuthentication"])->name('callback');
 
     });
+
 });
+
+
