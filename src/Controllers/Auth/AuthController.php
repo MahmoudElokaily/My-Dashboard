@@ -74,22 +74,29 @@ class AuthController extends Controller
         abort(404);
     }
 
-    public function socialAuthentication ($provide) {
-        dd($provide);
-        $googleUser = Socialite::driver('google')->user();
+    public function socialAuthentication($provide)
+    {
+        // استخدم `stateless()` فقط في حالة الحاجة لها
+        $socialUser = Socialite::driver($provide)->stateless()->user();
 
+        // التأكد من أن المتغير $provide هو إما 'google' أو 'facebook'
         $user = User::updateOrCreate([
-            'google_id' => $googleUser->id,
+            'google_id' => $provide === 'google' ? $socialUser->id : null,
+            'facebook_id' => $provide === 'facebook' ? $socialUser->id : null,
         ], [
-            'name' => $googleUser->name,
-            'email' => $googleUser->email,
-            "password" => Hash::make("123456789"),
-            "google_id" => $googleUser->id,
-            "picture" => $googleUser->getAvatar()
+            'name' => $socialUser->name,
+            'email' => $socialUser->email,
+            'password' => Hash::make('123456789'),
+            'google_id' => $provide === 'google' ? $socialUser->id : null,
+            'facebook_id' => $provide === 'facebook' ? $socialUser->id : null,
+            'picture' => $socialUser->getAvatar()
         ]);
+
         Auth::login($user);
+
         return redirect('/dashboard');
     }
+
     public function logout(Request $request)
     {
         // Log out the user

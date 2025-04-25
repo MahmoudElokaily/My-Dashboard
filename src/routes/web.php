@@ -1,6 +1,7 @@
 <?php
 
 use Elokaily\Dashboard\Controllers\Auth\AuthController;
+use Elokaily\Dashboard\Controllers\Dashboard\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(["prefix" => "dashboard" , "as" => "dashboard." , "middleware" => "web"] , function (){
@@ -10,6 +11,7 @@ Route::group(["prefix" => "dashboard" , "as" => "dashboard." , "middleware" => "
         Route::get('/logout' , [AuthController::class , "logout"])->name('logout');
         Route::get('profile/{id}' , [AuthController::class, "showProfile"])->name('show-profile');
         Route::post('update-profile/{id}' , [AuthController::class, "updateProfile"])->name('update-profile');
+        Route::get('admin-nav' , [DashboardController::class, "adminNav"])->name('admin-nav');
 
     });
 
@@ -29,7 +31,7 @@ Route::group(["prefix" => "dashboard" , "as" => "dashboard." , "middleware" => "
 
 
 
-        // aurh google and facebook
+        // auth google and facebook
         Route::get("/redirection/{provider}", [AuthController::class, "authProviderRedirect"])->name('redirection');
         Route::get('/{provider}/callback' , [AuthController::class , "socialAuthentication"])->name('callback');
 

@@ -21,12 +21,12 @@
     <link href="{{asset('dashboardAssets/css/sb-admin-2.min.css')}}" rel="stylesheet">
     <style>
         .bg-login-image {
-            background: url("{{ asset('dashboardAssets/img/main-logo.png') }}") !important;
+            background: url("{{ asset('dashboardAssets/images/default/main-logo.png') }}") !important;
             background-size: contain !important;
             background-position: center !important;
         }
         .bg-register-image {
-            background: url("{{ asset('dashboardAssets/img/main-logo.png') }}") !important;
+            background: url("{{ asset('dashboardAssets/images/default/main-logo.png') }}") !important;
             background-size: contain !important;
             background-position: center !important;
         }

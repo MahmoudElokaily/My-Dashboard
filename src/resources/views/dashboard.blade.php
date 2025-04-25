@@ -83,6 +83,11 @@
         </div>
     </div>
 </div>
+{{--jquery--}}
+<script src="{{asset('dashboardAssets/js/jquery/jquery-3.7.1.min.js.js')}}"></script>
+
+<!-- Include Chart.js from CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <!-- Bootstrap core JavaScript-->
 <script src="{{asset('dashboardAssets/vendor/jquery/jquery.min.js')}}"></script>
