@@ -12,7 +12,7 @@ class DashboardProvider extends ServiceProvider {
         $this->loadRoutesFrom(__DIR__ . "/../routes/web.php");
         $this->loadViewsFrom(__DIR__ . "/../resources/views", "dashboard");
         $this->loadMigrationsFrom(__DIR__ . "/../database/migration");
-
+        $this->loadSeedsFrom(__DIR__ . '/../database/Seeders');
 
         // public assets from my packages
         $this->publishes([
@@ -24,4 +24,12 @@ class DashboardProvider extends ServiceProvider {
             __DIR__.'/../resources/assets/images' => public_path('dashboardAssets/images'),
         ], 'public');
     }
+
+    protected function loadSeedsFrom(string $path): void
+    {
+        foreach (glob($path.'/*.php') as $filename) {
+            require_once $filename;
+        }
+    }
+
 }

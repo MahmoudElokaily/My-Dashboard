@@ -2,7 +2,9 @@
     "name": "elokaily/dashboard",
     "autoload": {
         "psr-4": {
-            "Elokaily\\Dashboard\\": "src/"
+            "Elokaily\\Dashboard\\": "src/",
+            "Elokaily\\Dashboard\\Database\\Seeders\\": "database/seeders/"
+
         }
     },
     "authors": [

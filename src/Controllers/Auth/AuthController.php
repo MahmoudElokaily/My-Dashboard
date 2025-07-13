@@ -76,13 +76,9 @@ class AuthController extends Controller
 
     public function socialAuthentication($provide)
     {
-        // استخدم `stateless()` فقط في حالة الحاجة لها
         $socialUser = Socialite::driver($provide)->stateless()->user();
-
-        // التأكد من أن المتغير $provide هو إما 'google' أو 'facebook'
         $user = User::updateOrCreate([
-            'google_id' => $provide === 'google' ? $socialUser->id : null,
-            'facebook_id' => $provide === 'facebook' ? $socialUser->id : null,
+            'email' => $socialUser->email
         ], [
             'name' => $socialUser->name,
             'email' => $socialUser->email,
@@ -91,7 +87,6 @@ class AuthController extends Controller
             'facebook_id' => $provide === 'facebook' ? $socialUser->id : null,
             'picture' => $socialUser->getAvatar()
         ]);
-
         Auth::login($user);
 
         return redirect('/dashboard');

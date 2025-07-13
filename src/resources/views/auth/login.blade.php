@@ -65,7 +65,7 @@
                                         Login
                                     </button>
                                     <hr>
-                                    <a href="{{ route('dashboard.redirection', 'google') }}" target="_blank" class="btn btn-google btn-user btn-block">
+                                    <a href="{{ route('dashboard.redirection', 'google') }}" class="btn btn-google btn-user btn-block">
                                         <i class="fab fa-google fa-fw"></i> Login with Google
                                     </a>
                                     <a href="{{ route('dashboard.redirection', 'facebook') }}" class="btn btn-facebook btn-user btn-block">
